@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -144,6 +146,14 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
+
+SIMPLE_JWT.update({
+    'AUTH_COOKIE': 'access_token',
+    'AUTH_COOKIE_REFRESH': 'refresh_token',
+    'AUTH_COOKIE_SECURE': not DEBUG,
+    'AUTH_COOKIE_HTTP_ONLY': True,
+    'AUTH_COOKIE_SAMESITE': 'None',
+})
 
 CELERY_BROKER_URL = REDIS_URL_BROKER
 CELERY_RESULT_BACKEND = CELERY_BROKER_URL
