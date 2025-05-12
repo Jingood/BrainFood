@@ -1,9 +1,10 @@
 from django.conf import settings
 from django.shortcuts import render
+from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, DestroyAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework_simplejwt.tokens import RefreshToken, TokenError
@@ -11,6 +12,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from .serializers import SignupSerializer, PasswordChangeSerializer
 from datetime import timedelta
 
+User = get_user_model()
 COOKIE_MAX_AGE = int(timedelta(days=1).total_seconds())
 
 class SignupAPIView(CreateAPIView):
@@ -102,3 +104,18 @@ class PasswordChangeAPIView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({'detail': "비밀번호가 변경되었습니다."}, status=status.HTTP_200_OK)
+
+class DeleteAccountAPIView(DestroyAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = User.objects.all()
+
+    def get_object(self):
+        return self.request.user
+    
+    def delete(self, request, *args, **kwargs):
+        response = super().delete(request, *args, **kwargs)
+        response.delete_cookie(settings.SIMPLE_JWT['AUTH_COOKIE'])
+        response.delete_cookie(settings.SIMPLE_JWT['AUTH_COOKIE_REFRESH'], path='/api/refresh/')
+        response.data = {'detail': "account deleted"}
+        response.status_code = status.HTTP_204_NO_CONTENT
+        return response
