@@ -8,7 +8,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework_simplejwt.tokens import RefreshToken, TokenError
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from .serializers import SignupSerializer
+from .serializers import SignupSerializer, PasswordChangeSerializer
 from datetime import timedelta
 
 COOKIE_MAX_AGE = int(timedelta(days=1).total_seconds())
@@ -43,7 +43,7 @@ class CookieTokenObtainPairView(TokenObtainPairView):
             secure=settings.SIMPLE_JWT['AUTH_COOKIE_SECURE'],
             path='/api/refresh/',
         )
-        response.data = {'detail': 'login success'}
+        response.data = {'detail': "login success"}
         return response
     
 class CookieTokenRefreshView(TokenRefreshView):
@@ -63,7 +63,7 @@ class CookieTokenRefreshView(TokenRefreshView):
             samesite=settings.SIMPLE_JWT['AUTH_COOKIE_SAMESITE'],
             secure=settings.SIMPLE_JWT['AUTH_COOKIE_SECURE'],
         )
-        response.data = {'detail': 'token refreshed'}
+        response.data = {'detail': "token refreshed"}
         return response
 
 class LogoutAPIView(APIView):
@@ -80,7 +80,7 @@ class LogoutAPIView(APIView):
             except (TokenError, AttributeError):
                 pass
         
-        response = Response({'detail': 'logout success'}, status=status.HTTP_204_NO_CONTENT)
+        response = Response({'detail': "logout success"}, status=status.HTTP_204_NO_CONTENT)
 
         response.delete_cookie(
             settings.SIMPLE_JWT['AUTH_COOKIE'],
@@ -93,3 +93,12 @@ class LogoutAPIView(APIView):
             samesite=settings.SIMPLE_JWT['AUTH_COOKIE_SAMESITE'],
         )
         return response
+
+class PasswordChangeAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        serializer = PasswordChangeSerializer(data=request.data, context={'request':request})
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({'detail': "비밀번호가 변경되었습니다."}, status=status.HTTP_200_OK)
