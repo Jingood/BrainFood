@@ -156,12 +156,27 @@ SIMPLE_JWT.update({
     'AUTH_COOKIE_SAMESITE': 'None',
 })
 
+OPENAI_API_KEY = env_required('OPENAI_API_KEY')
+
 CELERY_BROKER_URL = REDIS_URL_BROKER
 CELERY_RESULT_BACKEND = CELERY_BROKER_URL
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Seoul'
 
+
+INSTALLED_APPS += ['channels']
+
+ASGI_APPLICATION = 'BrainFood.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [os.getenv('REDIS_URL_CACHE')]
+        },
+    },
+}
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
