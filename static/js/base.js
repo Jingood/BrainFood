@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
     logoutBtn.setAttribute("href", "#");
     logoutBtn.onclick = (e) => {
         e.preventDefault();
-        axios.post("/accounts/api/logout/", {}, { withCredentials: true})
+        axios.post("/accounts/api/logout/", {}, { withCredentials: true })
         .finally(() => {
             window.location.reload();
         });
