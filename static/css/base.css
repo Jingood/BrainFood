@@ -35,18 +35,41 @@ header {
     transform: translateX(-50%);
 }
 
-.profile-link {
-    color: #4b5563;
-    text-decoration: none;
+/* 헤더 버튼 컨테이너 */
+.header-buttons {
     display: flex;
     align-items: center;
+    gap: 1rem;
     margin-left: auto;
 }
 
-.profile-link:hover {
+/* 헤더 버튼 공통 스타일 */
+.header-btn {
+    display: flex;
+    align-items: center;
+    color: #4b5563;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+}
+
+.header-btn:hover {
+    background-color: #f3f4f6;
     color: #4f46e5;
 }
 
+/* 버튼 아이콘 */
+.btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0.5rem;
+}
+
+/* 프로필 아이콘 */
 .profile-icon {
     width: 2rem;
     height: 2rem;
@@ -56,6 +79,36 @@ header {
     align-items: center;
     justify-content: center;
     margin-left: 0.5rem;
+}
+
+/* 프로필 버튼 */
+.profile-btn {
+    margin-right: 0.5rem;
+}
+
+/* 로그아웃 버튼 */
+.logout-btn:hover {
+    background-color: #fee2e2;
+    color: #ef4444;
+}
+
+.logout-btn:hover .logout-icon {
+    color: #ef4444;
+}
+
+/* 로그인 상태일 때 스타일 (JavaScript로 추가할 클래스) */
+.logged-in .profile-btn:hover {
+    background-color: #f3f4f6;
+    color: #4f46e5;
+}
+
+/* 로그아웃 상태일 때 스타일 (JavaScript로 추가할 클래스) */
+.logged-out .profile-btn {
+    color: #4f46e5;
+}
+
+.logged-out .logout-btn {
+    color: #4f46e5;
 }
 
 /* 메인 콘텐츠 영역 */
@@ -72,15 +125,26 @@ main {
 /* 반응형 디자인 */
 @media (max-width: 640px) {
     header {
-    padding: 1rem;
+        padding: 1rem;
     }
 
     .logo {
-    font-size: 1.25rem;
+        font-size: 1.25rem;
     }
 
     main {
-    padding: 0.5rem;
+        padding: 0.5rem;
+    }
+    
+    .header-btn span {
+        display: none;
+    }
+    
+    .btn-icon {
+        margin-left: 0;
+    }
+    
+    .header-btn {
+        padding: 0.5rem;
     }
 }
- 

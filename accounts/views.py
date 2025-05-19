@@ -15,9 +15,18 @@ from datetime import timedelta
 User = get_user_model()
 COOKIE_MAX_AGE = int(timedelta(days=1).total_seconds())
 
+class UserInfoAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        return Response({"username": user.username}, status=status.HTTP_200_OK)
+
+
 class SignupAPIView(CreateAPIView):
     permission_classes = [AllowAny]
     serializer_class = SignupSerializer
+
 
 class CookieTokenObtainPairView(TokenObtainPairView):
     serializer_class = TokenObtainPairSerializer
@@ -47,7 +56,8 @@ class CookieTokenObtainPairView(TokenObtainPairView):
         )
         response.data = {'detail': "login success"}
         return response
-    
+
+
 class CookieTokenRefreshView(TokenRefreshView):
     
     def post(self, request, *args, **kwargs):
@@ -67,6 +77,7 @@ class CookieTokenRefreshView(TokenRefreshView):
         )
         response.data = {'detail': "token refreshed"}
         return response
+
 
 class LogoutAPIView(APIView):
     permission_classes = [IsAuthenticated]
@@ -96,6 +107,7 @@ class LogoutAPIView(APIView):
         )
         return response
 
+
 class PasswordChangeAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -104,6 +116,7 @@ class PasswordChangeAPIView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({'detail': "비밀번호가 변경되었습니다."}, status=status.HTTP_200_OK)
+
 
 class DeleteAccountAPIView(DestroyAPIView):
     permission_classes = [IsAuthenticated]
