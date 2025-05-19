@@ -1,5 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
     const signupForm = document.getElementById("signup-form");
+    const loginLink = document.querySelector(".login-link")
+
+    if (loginLink) {
+        loginLink.setAttribute("href", "/accounts/login/");
+    }
 
     signupForm.addEventListener("submit", async function (e) {
         e.preventDefault();
