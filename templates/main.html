@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_head %}
+<script src="{% static 'js/main.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+{% endblock %}
+
 {% block content %}
 <div class="hero-section">
     <div class="book-container">
@@ -11,4 +16,4 @@
         <button class="chat-button">대화 해보기</button>
     </a>
 </div>
-{% endblock content %}
+{% endblock %}

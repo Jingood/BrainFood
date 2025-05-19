@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}회원가입{% endblock %}
+
+{% block extra_head %}
+<script src="{% static 'accounts/js/signup.js' %}"></script>
+<style>
+  :root {
+    --background-image-url: url("{% static 'accounts/images/open-book.png' %}");
+  }
+</style>
+<link rel="stylesheet" href="{% static 'accounts/css/signup.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="signup-container">
+  <div class="signup-card">
+    <h1 class="signup-title">회원가입</h1>
+    
+    <form id="signup-form" method="POST">
+      {% csrf_token %}
+      
+      <!-- 아이디 입력 -->
+      <div class="form-group">
+        <label for="username" class="form-label">아이디</label>
+        <input 
+          type="text" 
+          id="username" 
+          name="username" 
+          class="form-input" 
+          placeholder="아이디를 입력하세요" 
+          required
+        >
+      </div>
+      
+      <!-- 비밀번호 입력 -->
+      <div class="form-group">
+        <label for="password" class="form-label">비밀번호</label>
+        <input 
+          type="password" 
+          id="password" 
+          name="password" 
+          class="form-input" 
+          placeholder="비밀번호를 입력하세요" 
+          required
+        >
+      </div>
+      
+      <!-- 닉네임 입력 -->
+      <div class="form-group">
+        <label for="nickname" class="form-label">닉네임</label>
+        <input 
+          type="text" 
+          id="nickname" 
+          name="nickname" 
+          class="form-input" 
+          placeholder="닉네임을 입력하세요" 
+          required
+        >
+      </div>
+      
+      <!-- 이메일 입력 -->
+      <div class="form-group">
+        <label for="email" class="form-label">이메일</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          class="form-input" 
+          placeholder="이메일을 입력하세요" 
+          required
+        >
+      </div>
+      
+      <!-- 회원가입 버튼 -->
+      <button type="submit" class="signup-button">회원가입</button>
+    </form>
+    
+    <!-- 로그인 링크 -->
+    <div class="login-link-container">
+      이미 계정이 있으신가요? <a class="login-link">로그인</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
