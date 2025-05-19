@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="book-container">
+        <img src="{% static 'images/open-book.png' %}" alt=""
+        class="book-image">
+    </div>
+    <a href="">
+        <button class="chat-button">대화 해보기</button>
+    </a>
+</div>
+{% endblock content %}
