@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.shortcuts import render
+from django.views.generic import TemplateView
 from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.views import APIView
@@ -26,6 +27,10 @@ class UserInfoAPIView(APIView):
 class SignupAPIView(CreateAPIView):
     permission_classes = [AllowAny]
     serializer_class = SignupSerializer
+
+
+class SignupPageView(TemplateView):
+    template_name = "accounts/signup.html"
 
 
 class CookieTokenObtainPairView(TokenObtainPairView):
@@ -56,6 +61,10 @@ class CookieTokenObtainPairView(TokenObtainPairView):
         )
         response.data = {'detail': "login success"}
         return response
+
+
+class LoginPageView(TemplateView):
+    template_name = "accounts/login.html"
 
 
 class CookieTokenRefreshView(TokenRefreshView):
