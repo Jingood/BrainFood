@@ -1,0 +1,223 @@
+/* 배경 스타일 */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: var(--background-image-url);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(8px) brightness(0.7);
+    z-index: -1;
+  }
+  
+  /* 프로필 컨테이너 */
+  .profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: calc(100vh - 80px); /* 헤더 높이 제외 */
+    padding: 2rem 1rem;
+  }
+  
+  /* 프로필 카드 */
+  .profile-card {
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    padding: 2rem;
+  }
+  
+  /* 프로필 헤더 (닉네임과 버튼 영역) */
+  .profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+  
+  /* 닉네임 스타일 */
+  .profile-nickname {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0;
+  }
+  
+  /* 계정 관리 버튼 컨테이너 */
+  .account-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  /* 비밀번호 변경 버튼 */
+  .password-change-button {
+    padding: 0.5rem 1rem;
+    background-color: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 0.375rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .password-change-button:hover {
+    background-color: #4338ca;
+  }
+  
+  /* 회원 탈퇴 버튼 */
+  .account-delete-button {
+    padding: 0.5rem 1rem;
+    background-color: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 0.375rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .account-delete-button:hover {
+    background-color: #dc2626;
+  }
+  
+  /* 분리선 */
+  .divider {
+    height: 1px;
+    background-color: #e5e7eb;
+    margin: 1rem 0 1.5rem 0;
+    width: 100%;
+  }
+  
+  /* 세션 목록 제목 */
+  .sessions-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 1rem;
+  }
+  
+  /* 세션 그리드 */
+  .sessions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* 세션 버튼 */
+  .session-button {
+    display: block;
+    padding: 1rem;
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    height: 100%;
+  }
+  
+  .session-button:hover {
+    background-color: #f3f4f6;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* 세션 날짜 */
+  .session-date {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* 세션 정보 */
+  .session-info {
+    font-size: 0.875rem;
+    color: #6b7280;
+  }
+  
+  /* 세션이 없을 때 메시지 */
+  .no-sessions {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 2rem;
+    background-color: #f9fafb;
+    border-radius: 0.5rem;
+    color: #6b7280;
+  }
+  
+  /* 대화 시작 버튼 (세션 없을 때) */
+  .start-chat-button {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #4f46e5;
+    color: white;
+    border-radius: 0.375rem;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+  }
+  
+  .start-chat-button:hover {
+    background-color: #4338ca;
+  }
+  
+  /* 새 대화 시작 버튼 */
+  .new-chat-button {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .new-chat-button:hover {
+    background-color: #4338ca;
+  }
+  
+  /* 반응형 디자인 */
+  @media (max-width: 640px) {
+    .profile-card {
+      padding: 1.5rem;
+    }
+    
+    .profile-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    
+    .account-buttons {
+      flex-direction: row;
+      width: 100%;
+    }
+    
+    .password-change-button,
+    .account-delete-button {
+      flex: 1;
+    }
+    
+    .sessions-grid {
+      grid-template-columns: 1fr;
+    }
+  }

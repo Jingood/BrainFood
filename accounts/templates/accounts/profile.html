@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}프로필{% endblock %}
+
+{% block extra_head %}
+<style>
+    :root {
+      --background-image-url: url("{% static 'accounts/images/open-book.png' %}");
+    }
+</style>
+<link rel="stylesheet" href="{% static 'accounts/css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-card">
+      <!-- 닉네임과 버튼 영역 -->
+      <div class="profile-header">
+        <!-- 닉네임 표시 (JavaScript로 채워질 부분) -->
+        <h1 class="profile-nickname" id="user-nickname">사용자 닉네임</h1>
+        
+        <!-- 계정 관리 버튼 -->
+        <div class="account-buttons">
+          <button class="password-change-button">비밀번호 변경</button>
+          <button class="account-delete-button">회원 탈퇴</button>
+        </div>
+      </div>
+      
+      <!-- 분리선 -->
+      <div class="divider"></div>
+      
+      <!-- 세션 목록 제목 -->
+      <h2 class="sessions-title">내 대화 세션</h2>
+      
+      <!-- 세션 그리드 (JavaScript로 채워질 부분) -->
+      <div class="sessions-grid" id="sessions-container">
+        <!-- JavaScript로 동적으로 세션 버튼들이 여기에 추가됩니다 -->
+        
+        <!-- 세션이 없을 때 표시될 요소 -->
+        <div class="no-sessions" id="no-sessions-message" style="display: none;">
+          <p>아직 생성된 대화 세션이 없습니다.</p>
+          <a class="start-chat-button">대화 시작하기</a>
+        </div>
+      </div>
+      
+      <!-- 새 대화 시작 버튼 -->
+      <a href="chat.html" class="new-chat-button">새 대화 시작하기</a>
+    </div>
+</div>
+
+<template id="session-template">
+    <a href="#" class="session-button">
+      <div class="session-date"></div>
+      <div class="session-info"></div>
+    </a>
+</template>
+
+<script src="{% static 'accounts/js/profile.js' %}"></script>
+{% endblock %}
