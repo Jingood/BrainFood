@@ -11,10 +11,14 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework_simplejwt.tokens import RefreshToken, TokenError
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from .serializers import SignupSerializer, PasswordChangeSerializer
+from chat.models import ChatSession
+from chat.serializers import ChatSessionListSerializer
 from datetime import timedelta
+
 
 User = get_user_model()
 COOKIE_MAX_AGE = int(timedelta(days=1).total_seconds())
+
 
 class UserInfoAPIView(APIView):
     permission_classes = [IsAuthenticated]
@@ -141,3 +145,23 @@ class DeleteAccountAPIView(DestroyAPIView):
         response.data = {'detail': "account deleted"}
         response.status_code = status.HTTP_204_NO_CONTENT
         return response
+    
+
+class ProfileAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+
+        sessions_qs = (
+            ChatSession.objects.filter(user=user).order_by("-created_at")
+        )
+
+        sessions_ser = ChatSessionListSerializer(sessions_qs, many=True)
+
+        data = {
+            "username": user.username,
+            "nickname": user.nickname,
+            "sessions": sessions_ser.data,
+        }
+        return Response(data)
