@@ -1,0 +1,93 @@
+version: "3.9"
+
+# -----------------------------------
+# 1. 환경 변수 공통값
+# -----------------------------------
+
+x-env: &django-env
+  env_file: .env
+  environment:
+    POSTGRES_HOST: db
+    POSTGRES_PORT: 5432
+
+    REDIS_URL_BROKER: redis://redis:6379/0
+    REDIS_URL_CACHE: redis://redis:6379/1
+
+    DJANGO_DEBUG: "False"
+
+
+# ------------------------------------
+# 2. 서비스 정의
+# ------------------------------------
+
+services:
+
+  # 2-1. PostgreSQL
+  db:
+    image: postgres:14-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-brainfood}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER:-postgres}"]
+      interval: 10s
+      retries: 5
+  
+  # 2-2. Redis (Celery Broker + Channels)
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    volumes: [redisdata:/data]
+  
+  # 2-3. Django + Gunicorn + UvicornWorker
+  web:
+    build: .
+    <<: *django-env
+    restart: unless-stopped
+    command: >
+      sh -c "
+        python manage.py migrate &&
+        python manage.py collectstatic --noinput &&
+        gunicorn BrainFood.asgi:application
+          -k uvicorn.workers.UvicornWorker
+          -b 0.0.0.0:8000
+      "
+    volumes:
+      - staticfiled:/app/staticfiles
+    depends_on:
+      db: { condition: service_healthy }
+      redis: { condition: service_started }
+  
+  # 2-4. Celery Worker
+  worker:
+    build: .
+    <<: *django-env
+    command: celery -A BrainFood worker -l info --concurrency=4
+    restart: unless-stopped
+    depends_on:
+      db: { condition: service_healthy }
+      redis: { condition: service_started }
+
+  # 2-5. Nginx Reverse Proxy
+  nginx:
+    image: nginx:1.25-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./deploy/nginx.conf:/etx/nginx/nginx.conf:ro
+      - staticfiles:/static
+    depends_on:
+      web: { condition: service_started }
+
+
+# -----------------------------------
+# 3. 볼륨
+# -----------------------------------
+volumes:
+  pgdata:
+  redisdata:
+  staticfiles:
