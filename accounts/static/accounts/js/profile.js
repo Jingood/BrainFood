@@ -4,6 +4,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const tmpl = document.getElementById("session-template");
     const noSessionMsg = document.getElementById("no-sessions-message");
 
+    const chatBtn = document.querySelector(".new-chat-button");
+
+    chatBtn.addEventListener("click", function (e) {
+        e.preventDefault()
+
+        axios.post("/chat/api/sessions/", { title: "", first_message: "" })
+            .then(res => {
+                const newId = res.data.id;
+                window.location.href = `/chat/${newId}`;
+            });
+    })
+
     const PAGE_SIZE = 15;
     let sessions = [];
     let currentPage = 1;

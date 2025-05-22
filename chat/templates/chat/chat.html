@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}채팅방{% endblock %}
+
+{% block extra_head %}
+<style>
+    :root {
+      --background-image-url: url("{% static 'chat/images/open-book.png' %}");
+    }
+</style>
+<link rel="stylesheet" href="{% static 'chat/css/chat.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="chat-container">
+    <div class="chat-card">
+        <!-- 채팅 메시지 영역 -->
+        <div class="chat-messages" id="chat-messages">
+            <!-- 초기 메시지 (챗봇 인사) -->
+            <div class="message bot-message">
+                <div class="message-bubble">안녕하세요! 무엇을 도와드릴까요?</div>
+            </div>
+            <!-- 여기에 새 메시지가 추가됩니다 -->
+        </div>
+        
+        <!-- 채팅 입력 영역 -->
+        <div class="chat-input-area">
+            <form id="chat-form">
+                <input 
+                    type="text" 
+                    id="chat-input" 
+                    class="chat-input" 
+                    placeholder="메시지를 입력하세요..." 
+                    autocomplete="off"
+                >
+                <button type="submit" class="send-button">전송</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'chat/js/chat.js' %}"></script>
+{% endblock %}

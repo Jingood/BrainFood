@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic import TemplateView
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -29,6 +30,10 @@ class SessionListCreateView(ListCreateAPIView):
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+
+class ChatBotPageView(TemplateView):
+    template_name = "chat/chat.html"
 
 
 class SessionDetailView(RetrieveAPIView):
