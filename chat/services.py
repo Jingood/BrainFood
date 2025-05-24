@@ -7,9 +7,7 @@ from langchain.chains import ConversationChain
 from langchain_openai import ChatOpenAI
 from django.conf import settings
 
-SYSTEM_PROMPT = (
-
-)
+SYSTEM_PROMPT = settings.SYSTEM_PROMPT
 
 @lru_cache(maxsize=1)
 def _build_chain() -> ConversationChain:
