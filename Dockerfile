@@ -37,6 +37,7 @@ FROM build
 
 # 시스템 -> 비루트 유저 생성
 RUN adduser --disabled-password --gecos '' django
+RUN mkdir -p /app/staticfiles && chown django:django /app/staticfiles
 USER django
 
 WORKDIR /app
