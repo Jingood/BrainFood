@@ -33,7 +33,7 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 # 3. 애플리케이션 레이어
 # ---------------------------------------------
 
-FROM base
+FROM build
 
 # 시스템 -> 비루트 유저 생성
 RUN adduser --disabled-password --gecos '' django
