@@ -45,17 +45,17 @@ services:
     build: .
     <<: *django-env
     restart: unless-stopped
-    command: >
+    command: |
       sh -c "
         python manage.py migrate &&
         python manage.py collectstatic --noinput &&
         gunicorn BrainFood.asgi:application \
-         -k uvicorn.workers.UvicornWorker \ 
-         -b 0.0.0.0:8000 \ 
-         --log-level debug \
-         --access-logfile - \
-         --error-logfile - \
-         --capture-output 
+          -k uvicorn.workers.UvicornWorker \
+          -b 0.0.0.0:8000 \
+          --log-level debug \
+          --access-logfile - \    
+          --error-logfile - \
+          --capture-output
       "
     volumes:
       - staticfiles:/app/staticfiles
