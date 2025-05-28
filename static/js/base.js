@@ -55,10 +55,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     );
 
+    const logoBtn = document.querySelector(".logo")
     const profileBtn = document.getElementById("profile-signup-btn");
     const profileText = document.getElementById("profile-signup-text");
     const logoutBtn = document.getElementById("logout-login-btn");
     const logoutText = document.getElementById("logout-login-text");
+
+    if (logoBtn) {
+        logoBtn.style.cursor = "pointer";
+        logoBtn.addEventListener("click", () => {
+            window.location.href = "/";
+        });
+    }
 
     function renderLoggedIn(username = "프로필") {
     profileText.textContent = "프로필";
