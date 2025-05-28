@@ -35,7 +35,7 @@ def str2bool(v: str) -> bool:
 SECRET_KEY = env_required('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = str2bool(os.getenv('DJANGO_DEBUG', 'False'))
+DEBUG = str2bool(os.getenv('DJANGO_DEBUG'))
 
 ALLOWED_HOSTS = [h.strip() for h in os.getenv('DJANGO_ALLOWED_HOSTS', '').split(',') if h.strip()]
 

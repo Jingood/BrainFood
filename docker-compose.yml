@@ -11,7 +11,7 @@ x-env: &django-env
     REDIS_URL_BROKER: redis://redis:6379/0
     REDIS_URL_CACHE: redis://redis:6379/1
 
-    DJANGO_DEBUG: "False"
+    DJANGO_DEBUG: "True"
 
 
 # ------------------------------------
