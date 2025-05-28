@@ -31,7 +31,7 @@ class ChatSessionCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = ChatSession
         fields = ('id', 'title', 'first_message')
-        read_only_fields = ('id',)
+        read_only_fields = ('id', 'user')
 
     def create(self, validated_data):
         user = self.context['request'].user

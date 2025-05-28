@@ -29,7 +29,7 @@ class SessionListCreateView(ListCreateAPIView):
         )
     
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        serializer.save()
 
 
 class ChatBotPageView(TemplateView):
