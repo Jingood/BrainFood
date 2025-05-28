@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const loginLink = document.querySelector(".login-link")
     const statusBox = document.createElement("p");
     statusBox.className = "signup-status";
-    form.appendChild(statusBox);
+    signupForm.appendChild(statusBox);
 
     if (loginLink) {
         loginLink.setAttribute("href", "/accounts/login/");
