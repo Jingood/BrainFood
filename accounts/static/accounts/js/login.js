@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const signupLink = document.querySelector(".signup-link");
     const statusBox = document.createElement("p");
     statusBox.className = "login-status";
-    form.appendChild(statusBox);
+    loginForm.appendChild(statusBox);
 
     if (signupLink) {
         signupLink.setAttribute("href", "/accounts/signup/");
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
     loginForm.addEventListener("submit", async function (e) {
         e.preventDefault();
         statusBox.textContent = "";
-        const btn = form.querySelector(".login-button");
+        const btn = loginForm.querySelector(".login-button");
         btn.disabled = true;
 
         const payload = {

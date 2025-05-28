@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
     signupForm.addEventListener("submit", async function (e) {
         e.preventDefault();
         statusBox.textContent = "";
-        const btn = form.querySelector(".signup-button");
+        const btn = signupForm.querySelector(".signup-button");
         btn.disabled = true;
 
         const payload = {
