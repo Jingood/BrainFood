@@ -166,3 +166,7 @@ class ProfileAPIView(APIView):
             "sessions": sessions_ser.data,
         }
         return Response(data)
+
+
+class ProfilePageView(TemplateView):
+    template_name = "accounts/profile.html"
