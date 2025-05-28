@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const chatBtn = document.querySelector(".start-btn");
+    const chatBtn = document.querySelector(".chat-button");
 
     chatBtn.addEventListener("click", function (e) {
         e.preventDefault();
