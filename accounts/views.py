@@ -52,6 +52,7 @@ class CookieTokenObtainPairView(TokenObtainPairView):
             httponly=True,
             samesite=settings.SIMPLE_JWT["AUTH_COOKIE_SAMESITE"],
             secure=settings.SIMPLE_JWT['AUTH_COOKIE_SECURE'],
+            path='/',
         )
 
         response.set_cookie(
