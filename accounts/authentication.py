@@ -1,7 +1,7 @@
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from django.conf import settings
 
-class CookieJWTAuthenticcation(JWTAuthentication):
+class CookieJWTAuthentication(JWTAuthentication):
     def authenticate(self, request):
         header = self.get_header(request)
         if header is not None:
