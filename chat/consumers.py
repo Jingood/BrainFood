@@ -8,10 +8,12 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
     async def connect(self):
         self.session_id = self.scope['url_route']['kwargs']['session_id']
         user = self.scope['user']
-        exists = await database_sync_to_async(
-            ChatSession.objects.filter(id=self.session_id, user=user).exist
-        )()
-        if not exists:
+
+        try:
+            self.session = await database_sync_to_async(
+                ChatSession.objects.get
+            )(id=self.session_id, user=user)
+        except ChatSession.DoesNotExist:
             await self.close()
             return
         
@@ -27,7 +29,7 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
         
         serializer = ChatMessageCreateSerializer(
             data={'content': user_text},
-            context={'session_id': self.session_id, 'session': None},
+            context={'session_id': self.session_id, 'session': self.session},
         )
         if not serializer.is_valid():
             return
@@ -41,7 +43,7 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
                 'type': 'assistant_message',
                 'message_id': event['message_id'],
                 'content': event['content'],
-                'created_at': event['cerated_at'],
+                'created_at': event['created_at'],
             }
         )
     

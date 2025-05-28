@@ -18,9 +18,9 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'BrainFood.settings')
 
 django_asgi = get_asgi_application()
 
-import chat.routing
+from chat.routing import websocket_urlpatterns
 
 application = ProtocolTypeRouter({
     'http': django_asgi,
-    'websocket': AuthMiddlewareStack(URLRouter(chat.routing.websoket_urlpatterns)),
+    'websocket': AuthMiddlewareStack(URLRouter(websocket_urlpatterns)),
 })
