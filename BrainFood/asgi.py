@@ -11,16 +11,16 @@ import os
 
 from django.core.asgi import get_asgi_application
 from channels.routing import ProtocolTypeRouter, URLRouter
-from channels.auth import AuthMiddlewareStack
 
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'BrainFood.settings')
 
 django_asgi = get_asgi_application()
 
+from accounts.middleware import JWTAuthMiddleware
 from chat.routing import websocket_urlpatterns
 
 application = ProtocolTypeRouter({
     'http': django_asgi,
-    'websocket': AuthMiddlewareStack(URLRouter(websocket_urlpatterns)),
+    'websocket': JWTAuthMiddleware(URLRouter(websocket_urlpatterns)),
 })

@@ -29,7 +29,7 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
         
         serializer = ChatMessageCreateSerializer(
             data={'content': user_text},
-            context={'session_id': self.session_id, 'session': self.session},
+            context={'session': self.session},
         )
         if not serializer.is_valid():
             return
