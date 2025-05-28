@@ -4,7 +4,7 @@
 {% block title %}로그인{% endblock %}
 
 {% block extra_head %}
-<script src="{% static 'accounts/js/login.js' %}"></script>
+<script src="{% static 'accounts/js/login.js' %}" defer></script>
 <style>
   :root {
     --background-image-url: url("{% static 'accounts/images/open-book.png' %}");

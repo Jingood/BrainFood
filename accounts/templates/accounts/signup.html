@@ -4,7 +4,7 @@
 {% block title %}회원가입{% endblock %}
 
 {% block extra_head %}
-<script src="{% static 'accounts/js/signup.js' %}"></script>
+<script src="{% static 'accounts/js/signup.js' %}" defer></script>
 <style>
   :root {
     --background-image-url: url("{% static 'accounts/images/open-book.png' %}");
