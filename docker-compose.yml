@@ -45,6 +45,14 @@ services:
     build: .
     <<: *django-env
     restart: unless-stopped
+    environment:
+      HTTP_PROXY: ""
+      HTTPS_PROXY: ""
+      http_proxy: ""
+      https_proxy: ""
+      ALL_PROXY: ""
+      all_proxy: ""
+      OPENAI_PROXY: ""
     command:
       - sh
       - -c
@@ -70,6 +78,14 @@ services:
     <<: *django-env
     command: celery -A BrainFood worker -l info --concurrency=4
     restart: unless-stopped
+    environment:
+      HTTP_PROXY: ""
+      HTTPS_PROXY: ""
+      http_proxy: ""
+      https_proxy: ""
+      ALL_PROXY: ""
+      all_proxy: ""
+      OPENAI_PROXY: ""
     depends_on:
       db: { condition: service_healthy }
       redis: { condition: service_started }

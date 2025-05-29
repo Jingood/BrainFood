@@ -39,7 +39,7 @@ def generate_reply(thread: List[Dict[str, str]]) -> str:
 
     for m in thread[-10:]:
         if m['role'] == 'user':
-            chain.memort.chat_memory.add_message(HumanMessage(content=m['content']))
+            chain.memory.chat_memory.add_message(HumanMessage(content=m['content']))
         elif m['role'] == 'assistant':
             chain.memory.chat_memory.add_message(AIMessage(content=m['content']))
         else:
