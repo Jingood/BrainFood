@@ -15,7 +15,7 @@ class ChatSessionListSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'created_at', 'last_message')
     
     def get_last_message(self, obj: ChatSession):
-        msg = obj.message.order_by('-created_at').first()
+        msg = obj.messages.order_by('-created_at').first()
         return msg.content[:50] if msg else ""
 
 class ChatSessionDetailSerializer(serializers.ModelSerializer):
