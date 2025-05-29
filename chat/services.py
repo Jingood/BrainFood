@@ -4,7 +4,7 @@ from functools import lru_cache
 from langchain.schema import SystemMessage, HumanMessage, AIMessage
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationChain
-from langchain_openai import ChatOpenAI
+from langchain.chat_models import ChatOpenAI
 from django.conf import settings
 
 SYSTEM_PROMPT = settings.SYSTEM_PROMPT
@@ -15,13 +15,6 @@ def _build_chain() -> ConversationChain:
         model='gpt-4o-mini-search-preview',
         temperature=0.7,
         openai_api_key=settings.OPENAI_API_KEY,
-        openai_kwargs={
-            'tools': [{
-                'type': 'web_search_preview',
-                'search_context_size': 'low',
-            }],
-            'tool_choice': {'type': 'web_search_preview'},
-        },
     )
 
     memory = ConversationBufferMemory(return_messages=True)
