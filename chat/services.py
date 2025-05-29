@@ -12,7 +12,7 @@ SYSTEM_PROMPT = settings.SYSTEM_PROMPT
 @lru_cache(maxsize=1)
 def _build_chain() -> ConversationChain:
     llm = ChatOpenAI(
-        model='gpt-4o-mini-search-preview',
+        model='gpt-3.5-turbo',
         temperature=0.7,
         openai_api_key=settings.OPENAI_API_KEY,
     )
