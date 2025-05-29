@@ -13,14 +13,6 @@ x-env: &django-env
 
     DJANGO_DEBUG: "True"
 
-    HTTP_PROXY: ""
-    HTTPS_PROXY: ""
-    http_proxy: ""
-    https_proxy: ""
-    ALL_PROXY: ""
-    all_proxy: ""
-    OPENAI_PROXY: ""
-
 # ------------------------------------
 # 2. 서비스 정의
 # ------------------------------------

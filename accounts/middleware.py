@@ -29,3 +29,14 @@ class JWTAuthMiddleware:
         
         scope["user"] = user
         return await self.inner(scope, receive, send)
+
+
+class ClearInvalidJWT:
+    def __init__(self, get_response):
+        self.get_response = get_response
+    
+    def __call__(self, request):
+        response = self.get_response(request)
+        if isinstance(getattr(request, "auth", None), Exception):
+            response.delete_cookie(settings.SIMPLE_JWT["AUTH_COOKIE"], path="/")
+        return response
