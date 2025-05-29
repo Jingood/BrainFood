@@ -18,17 +18,14 @@ def _build_chain() -> ConversationChain:
     )
 
     memory = ConversationBufferMemory(return_messages=True)
-
-    return ConversationChain(
-        llm=llm,
-        memory=memory,
-        system_message=SystemMessage(content=SYSTEM_PROMPT),
-        verbose=False,
-    )
+    chain = ConversationChain(llm=llm, memory=memory, verbose=False)
+    return chain
 
 def generate_reply(thread: List[Dict[str, str]]) -> str:
     chain = _build_chain()
     chain.memory.clear()
+
+    chain.memory.chat_memory.add_message(SystemMessage(content=SYSTEM_PROMPT))
 
     for m in thread[-10:]:
         if m['role'] == 'user':
