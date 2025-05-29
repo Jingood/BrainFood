@@ -13,6 +13,13 @@ x-env: &django-env
 
     DJANGO_DEBUG: "True"
 
+    HTTP_PROXY: ""
+    HTTPS_PROXY: ""
+    http_proxy: ""
+    https_proxy: ""
+    ALL_PROXY: ""
+    all_proxy: ""
+    OPENAI_PROXY: ""
 
 # ------------------------------------
 # 2. 서비스 정의
@@ -45,14 +52,6 @@ services:
     build: .
     <<: *django-env
     restart: unless-stopped
-    environment:
-      HTTP_PROXY: ""
-      HTTPS_PROXY: ""
-      http_proxy: ""
-      https_proxy: ""
-      ALL_PROXY: ""
-      all_proxy: ""
-      OPENAI_PROXY: ""
     command:
       - sh
       - -c
@@ -78,14 +77,6 @@ services:
     <<: *django-env
     command: celery -A BrainFood worker -l info --concurrency=4
     restart: unless-stopped
-    environment:
-      HTTP_PROXY: ""
-      HTTPS_PROXY: ""
-      http_proxy: ""
-      https_proxy: ""
-      ALL_PROXY: ""
-      all_proxy: ""
-      OPENAI_PROXY: ""
     depends_on:
       db: { condition: service_healthy }
       redis: { condition: service_started }
