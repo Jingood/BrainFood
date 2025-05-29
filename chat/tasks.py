@@ -20,7 +20,7 @@ def make_assistant_reply(session_id:int, user_msg_id: int):
     )
 
     channel_layer = get_channel_layer()
-    async_to_sync(channel_layer.gruop_send)(
+    async_to_sync(channel_layer.group_send)(
         f"chat_{session_id}",
         { 
             'type': 'assistant.message',
