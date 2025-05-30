@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
     logoutBtn.onclick = null;
     }
 
-    const SKIP_USERINFO_PATHS = ["/", "/accounts/signup/", "/accounts/login/"];
+    const SKIP_USERINFO_PATHS = ["/accounts/signup/", "/accounts/login/"];
 
     if (!SKIP_USERINFO_PATHS.some(p => location.pathname.startsWith(p))) {
         axios.get("/accounts/api/user/")
