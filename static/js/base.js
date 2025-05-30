@@ -93,7 +93,11 @@ document.addEventListener("DOMContentLoaded", () => {
     logoutBtn.onclick = null;
     }
 
-    axios.get("/accounts/api/user/")
-    .then((res) => renderLoggedIn(res.data.username))
-    .catch(renderLoggedOut);
+    const SKIP_USERINFO_PATHS = ["/", "/accounts/signup/", "/accounts/login/"];
+
+    if (!SKIP_USERINFO_PATHS.some(p => location.pathname.startsWith(p))) {
+        axios.get("/accounts/api/user/")
+        .then((res) => renderLoggedIn(res.data.username))
+        .catch(renderLoggedOut);
+    }
 });

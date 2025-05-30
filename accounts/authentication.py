@@ -17,6 +17,7 @@ class CookieJWTAuthentication(JWTAuthentication):
         try:
             validated_token = self.get_validated_token(raw_token)
         except (InvalidToken, TokenError, AuthenticationFailed):
+            request._force_delete_jwt = True 
             return None
         
         return self.get_user(validated_token), validated_token

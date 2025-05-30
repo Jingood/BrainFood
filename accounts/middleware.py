@@ -37,6 +37,7 @@ class ClearInvalidJWT:
     
     def __call__(self, request):
         response = self.get_response(request)
-        if isinstance(getattr(request, "auth", None), Exception):
+        if getattr(request, "_force_delete_jwt", False):
             response.delete_cookie(settings.SIMPLE_JWT["AUTH_COOKIE"], path="/")
+            response.delete_cookie(settings.SIMPLE_JWT["AUTH_COOKIE_REFRESH"], path="/api/refresh/")
         return response
