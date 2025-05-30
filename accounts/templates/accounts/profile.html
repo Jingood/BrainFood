@@ -50,10 +50,14 @@
 </div>
 
 <template id="session-template">
+  <div class="session-card">
     <a href="#" class="session-button">
       <div class="session-date"></div>
       <div class="session-info"></div>
     </a>
+    <!-- 우측상단 × 버튼 -->
+    <button type="button" class="session-delete-btn" title="삭제">×</button>
+  </div>
 </template>
 
 <script src="{% static 'accounts/js/profile.js' %}" defer></script>

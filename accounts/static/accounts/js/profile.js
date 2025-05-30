@@ -40,15 +40,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function makeSessionCard(session) {
         const node = tmpl.content.cloneNode(true);
+
+        const card = node.querySelector(".session-card");
+        card.id = `session-${session.id}`;
+
         const link = node.querySelector(".session-button");
-        const date = node.querySelector(".session-date");
-        const info = node.querySelector(".session-info");
-
         link.href = `/chat/${session.id}/`;
-        date.textContent = new Date(session.created_at)
-            .toLocaleString("ko-KR", { dateStyle: "short", timeStyle: "short" });
 
-        info.textContent = session.title || session.last_message || "(제목 없음)";
+        node.querySelector(".session-date").textContent =
+            new Date(session.created_at).toLocaleString("ko-KR", 
+                { dateStyle: "short", timeStyle: "short" });
+        
+        node.querySelector(".session-info").textContent =
+            session.title || session.last_message || "(제목 없음)";
+        
+        const delBtn = node.querySelector(".session-delete-btn");
+        delBtn.onclick = async (e) => {
+            e.stopPropagation();
+            const ok = confirm("세션을 삭제하시겠습니까?");
+            if (!ok) return;
+            try {
+                await axios.delete(`/chat/api/sessions/${session.id}/delete/`);
+                document.getElementById(`session-${session.id}`).remove();
+                sessions = sessions.filter(s => s.id !== session.id);
+                if (sessions.length === 0) renderPage(1);
+            } catch (err) {
+                console.error(err);
+            }
+        };
         return node;
     }
 

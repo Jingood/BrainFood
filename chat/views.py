@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.generics import ListCreateAPIView, RetrieveAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveAPIView, DestroyAPIView
 from rest_framework.permissions import IsAuthenticated
 from .models import ChatSession, ChatMessage
 from .serializers import (
@@ -66,3 +66,15 @@ class MessageCreateView(APIView):
             ChatMessageCreateSerializer(user_msg).data,
             status=status.HTTP_202_ACCEPTED
         )
+    
+
+class ChatSessionDestroyAPIView(DestroyAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = ChatSession.objects.all()
+    
+    def get_queryset(self):
+        return self.queryset.filter(user=self.request.user)
+    
+    def delete(self, request, *args, **kwargs):
+        super().delete(request, *args, **kwargs)
+        return Response({"detail": "session deleted"}, status=status.HTTP_204_NO_CONTENT)
