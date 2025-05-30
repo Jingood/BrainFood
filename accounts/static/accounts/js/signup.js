@@ -23,7 +23,9 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         try {
-            await axios.post("/accounts/api/signup/", payload);
+            await axios.post("/accounts/api/signup/", payload, {
+                headers: { Authorization: "" }
+            });
             window.location.href = "/accounts/login/";
         } catch (err) {
             if (err.response) {

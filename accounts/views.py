@@ -29,6 +29,7 @@ class UserInfoAPIView(APIView):
 
 
 class SignupAPIView(CreateAPIView):
+    authentication_classes: tuple = ()
     permission_classes = [AllowAny]
     serializer_class = SignupSerializer
 
