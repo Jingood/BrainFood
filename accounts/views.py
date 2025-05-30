@@ -132,6 +132,10 @@ class PasswordChangeAPIView(APIView):
         return Response({'detail': "비밀번호가 변경되었습니다."}, status=status.HTTP_200_OK)
 
 
+class PasswordChangePageView(TemplateView):
+    template_name = "accounts/password_change.html"
+
+
 class DeleteAccountAPIView(DestroyAPIView):
     permission_classes = [IsAuthenticated]
     queryset = User.objects.all()
