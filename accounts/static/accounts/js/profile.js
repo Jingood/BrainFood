@@ -3,6 +3,24 @@ document.addEventListener("DOMContentLoaded", () => {
     const gridEl = document.getElementById("sessions-container");
     const tmpl = document.getElementById("session-template");
     const noSessionMsg = document.getElementById("no-sessions-message");
+    const changeBtn = document.querySelector(".password-change-button");
+    const deleteBtn = document.querySelector(".account-delete-button");
+
+    changeBtn.setAttribute("href", "/accounts/password_change/");
+
+    deleteBtn.addEventListener("click", async (e) => {
+        e.preventDefault()
+
+        const ok = confirm("정말로 계정을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.");
+        if (!ok) return;
+
+        try {
+            await axios.delete("/accounts/api/delete/");
+            window.location.href = "/";
+        } catch (err) {
+            console.error(err);
+        }
+    })
 
     const chatBtn = document.querySelector(".new-chat-button");
 
