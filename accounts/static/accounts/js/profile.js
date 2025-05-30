@@ -6,7 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const changeBtn = document.querySelector(".password-change-button");
     const deleteBtn = document.querySelector(".account-delete-button");
 
-    changeBtn.setAttribute("href", "/accounts/password_change/");
+    changeBtn.addEventListener("click", function() {
+        window.location.href = "/accounts/password_change/";
+    })
 
     deleteBtn.addEventListener("click", async (e) => {
         e.preventDefault()
