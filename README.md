@@ -1,4 +1,4 @@
-# BrainFood (https://www.ady.today)
+# BrainFood (https://www.ady.today - 현재 서비스 종료)
 
 **Project**: BrainFood  
 OpenAI API를 활용한 LLM 기반 챗봇으로, 사용자의 대화 내용을 바탕으로 소설 및 시집을 추천하고 핵심 구절을 제공하는 페이지입니다.
